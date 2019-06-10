@@ -45,10 +45,16 @@
         "metadata": {
           "description": "Location for all resources."
         }
+      },
+      "environmentName":{
+        "type": "string",
+        "metadata": {
+        "description": "Environment to be deployed in to."
+        }
       }
     },
     "variables": {
-      "apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
+      "apiManagementServiceName": "[concat('core-api-mgmt-', parameter(environmentName))]"
     },
     "resources": [
       {
