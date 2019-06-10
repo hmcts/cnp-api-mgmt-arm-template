@@ -8,7 +8,8 @@ name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)
 trigger:
 - master
 
-pool: 'VS2017'
+pool:
+  vmImage: vs2017-win2016
 
 steps:
 - task: CopyFiles@2
