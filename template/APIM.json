@@ -54,7 +54,7 @@
       }
     },
     "variables": {
-      "apiManagementServiceName": "[concat('core-api-mgmt-', parameter(environmentName))]"
+      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]"
     },
     "resources": [
       {
