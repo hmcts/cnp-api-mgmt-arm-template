@@ -1,0 +1,1 @@
+# cnp-api-mgmt-arm-template
