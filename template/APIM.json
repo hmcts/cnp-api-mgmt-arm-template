@@ -54,7 +54,8 @@
       }
     },
     "variables": {
-      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]"
+      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
+      "apiManagementSubnet": "[concat('core-api-mgmt-',parameters('environmentName'))]"
     },
     "resources": [
       {
