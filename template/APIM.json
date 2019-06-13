@@ -100,7 +100,7 @@
       "VirtualNetworkResourceGroup" : "[concat('core-infra-',parameters('shortName'))]",
       "VirtualNetworkName" : "[concat('core-infra-vnet-',parameters('shortName'))]",
       "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
-      "SubnetResourceId": "[resourceId(parameters('VirtualNetworkResourceGroup'),‘Microsoft.Network/virtualNetworks/subnets’,parameters('VirtualNetworkName'),parameters('VirtualNetworkSubnetName'))]"
+      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),‘Microsoft.Network/virtualNetworks/subnets’,variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]"
     },
     "resources": [
       {
@@ -129,7 +129,7 @@
           "publisherName": "[parameters('publisherName')]",
           "virtualNetworkType": "[parameters('virtualNetworkType')]",
           "virtualNetworkConfiguration": {
-            "subnetResourceId": "[parameters('SubnetResourceId')]"
+            "subnetResourceId": "[variables('SubnetResourceId')]"
           }
         }
       }
