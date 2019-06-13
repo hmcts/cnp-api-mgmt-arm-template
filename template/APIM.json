@@ -94,12 +94,13 @@
           }
       }
     },
-    "variables": {
+    "variables": { 
       "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
       "apiManagementSubnet": "[concat('core-api-mgmt-',parameters('environmentName'))]",
       "VirtualNetworkResourceGroup" : "[concat('core-infra-',parameters('shortName'))]",
       "VirtualNetworkName" : "[concat('core-infra-vnet-',parameters('shortName'))]",
-      "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]"
+      "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
+      "SubnetResourceId": "[resourceId(parameters('VirtualNetworkResourceGroup'),‘Microsoft.Network/virtualNetworks/subnets’,parameters('VirtualNetworkName'),parameters('VirtualNetworkSubnetName'))]"
     },
     "resources": [
       {
@@ -128,10 +129,9 @@
           "publisherName": "[parameters('publisherName')]",
           "virtualNetworkType": "[parameters('virtualNetworkType')]",
           "virtualNetworkConfiguration": {
-            "subnetResourceId": "[resourceId(parameters('VirtualNetworkResourceGroup'),‘Microsoft.Network/virtualNetworks/subnets’,parameters('VirtualNetworkName'),parameters('VirtualNetworkSubnetName'))]"
+            "subnetResourceId": "[parameters('SubnetResourceId')]"
           }
         }
       }
     ]
   }
-  
