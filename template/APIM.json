@@ -51,10 +51,56 @@
         "metadata": {
         "description": "Environment to be deployed in to."
         }
+      },
+      "virtualNetworkType" :{
+        "type": "string",
+        "defaultValue": "External",
+        "allowedValues": [
+          "Internal",
+          "External"
+        ]
+      },
+      "branch":{
+        "type": "string"
+      },
+      "managedBy": {
+        "type": "string"
+      },
+      "solutionOwner": {
+        "type": "string"
+      },
+      "activityName": {
+        "type": "string"
+      },
+      "dataClassification": {
+        "type": "string"
+      },
+      "automation": {
+        "type": "string"
+      },
+      "costCentre": {
+        "type": "string"
+      },
+      "environment": {
+        "type": "string"
+      },
+      "criticality": {
+        "type": "string"
+      },
+      "shortName": {
+        "type": "string",
+        "metadata": {
+          "description": "Environment short nme used for resource group allocation"
+          }
       }
     },
-    "variables": {
-      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]"
+    "variables": { 
+      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
+      "apiManagementSubnet": "[concat('core-api-mgmt-',parameters('environmentName'))]",
+      "VirtualNetworkResourceGroup" : "[concat('core-infra-',parameters('shortName'))]",
+      "VirtualNetworkName" : "[concat('core-infra-vnet-',parameters('shortName'))]",
+      "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
+      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]"
     },
     "resources": [
       {
@@ -62,16 +108,30 @@
         "name": "[variables('apiManagementServiceName')]",
         "type": "Microsoft.ApiManagement/service",
         "location": "[parameters('location')]",
-        "tags": {},
+        "tags" : {
+          "EnvironmentName": "[parameters('environmentName')]",
+          "Branch":"[parameters('branch')]",
+          "managedBy":"[parameters('managedBy')]",
+          "solutionOwner": "[parameters('solutionOwner')]",
+          "activityName": "[parameters('activityName')]",
+          "dataClassification":"[parameters('dataClassification')]",
+          "automation": "[parameters('automation')]",
+          "costCentre":"[parameters('costCentre')]",
+          "environment": "[parameters('environment')]",
+          "criticality": "[parameters('criticality')]"
+        },
         "sku": {
           "name": "[parameters('sku')]",
           "capacity": "[parameters('skuCount')]"
         },
         "properties": {
           "publisherEmail": "[parameters('publisherEmail')]",
-          "publisherName": "[parameters('publisherName')]"
+          "publisherName": "[parameters('publisherName')]",
+          "virtualNetworkType": "[parameters('virtualNetworkType')]",
+          "virtualNetworkConfiguration": {
+            "subnetResourceId": "[variables('SubnetResourceId')]"
+          }
         }
       }
     ]
   }
-  
