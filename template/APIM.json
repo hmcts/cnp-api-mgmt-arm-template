@@ -100,7 +100,7 @@
       "VirtualNetworkResourceGroup" : "[concat('core-infra-',parameters('shortName'))]",
       "VirtualNetworkName" : "[concat('core-infra-vnet-',parameters('shortName'))]",
       "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
-      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),‘Microsoft.Network/virtualNetworks/subnets’,variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]"
+      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]"
     },
     "resources": [
       {
