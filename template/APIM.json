@@ -208,29 +208,29 @@
         }
       },
       {
+        "name": "string",
         "type": "Microsoft.ApiManagement/service/authorizationServers",
-        "name": "[variables('AuthorizationServerName')]",
-        "apiVersion": "2018-01-01",
-        "properties": {
-          "displayName": "[(parameters('oAuthDisplayName')]",
-          "description": "[(parameters('oAuthDescription')]",
-          "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
-          "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
-          "authorizationMethods": "[parameters('oAuthRequestMethod')]",
-          "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
-          "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
-          "supportState": "[parameters('oAuthSupportState')]",
-          "defaultScope": "[parameters('oAuthDefaultScope')]",
-          "grantTypes": "[parameters('oAuthGrantTypes')]",
-          "bearerTokenSendingMethods": "[parameters('oAuthTokenSendingMethod')]",
-          "clientId": "[parameters('oAuthClientId')]",
-          "clientSecret": "[parameters('oAuthClientSecret')]",
-          "resourceOwnerUsername": "[parameters('oAuthResourceOwner')]", 
-          "resourceOwnerPassword": "[parameters('oAuthResourceOwnerPassword')]"
-        },
+        "apiVersion": "2019-01-01",
         "dependsOn": [
           "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
-        ]
+        ],
+        "properties": {
+              "description": "[(parameters('oAuthDescription')]",
+              "authorizationMethods": "[parameters('oAuthRequestMethod')]",
+              "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
+              "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
+              "supportState": "[parameters('oAuthSupportState')]",
+              "defaultScope": "[parameters('oAuthDefaultScope')]",
+              "bearerTokenSendingMethods": "[parameters('oAuthTokenSendingMethod')]",
+              "clientSecret": "[parameters('oAuthClientSecret')]",
+              "resourceOwnerUsername": "[parameters('oAuthResourceOwner')]", 
+              "resourceOwnerPassword": "[parameters('oAuthResourceOwnerPassword')]",
+              "displayName": "[(parameters('oAuthDisplayName')]",
+              "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
+              "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
+              "grantTypes": "[parameters('oAuthGrantTypes')]",
+              "clientId": "[parameters('oAuthClientId')]"
+        }
       }
     ]
   }
