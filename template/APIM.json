@@ -72,7 +72,7 @@
         "defaultValue": null
       },
       "oAuthGrantTypes":{
-        "type": "string",
+        "type": "array",
         "defaultValue": "authorizationCode",
         "allowedValues": [
           "authorizationCode",
@@ -85,7 +85,7 @@
         "type": "string"
       }, 
       "oAuthRequestMethod":{
-        "type": "string",
+        "type": "array",
         "defaultValue": "GET",
         "allowedValues": [
           "GET",
@@ -96,7 +96,7 @@
         "type": "string"
       },   
       "oAuthClientAuthenticationMethod":{
-        "type": "string",
+        "type": "array",
         "defaultValue": "Basic",
         "allowedValues": [
           "Basic",
@@ -104,7 +104,7 @@
         ]
       },           
       "oAuthTokenSendingMethod":{
-        "type": "string",
+        "type": "array",
         "defaultValue": "authorizationHeader",
         "allowedValues": [
           "authorizationHeader",
