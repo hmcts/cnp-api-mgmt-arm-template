@@ -65,11 +65,11 @@
       }, 
       "oAuthDescription" :{
         "type": "string",
-        "defaultValue": "null"
+        "defaultValue": null
       },
-      "oAuthClientRegistrationUrl" :{
+      "oAuthClientRegistrationEndpoint" :{
         "type": "string",
-        "defaultValue": "null"
+        "defaultValue": null
       },
       "oAuthGrantTypes" :{
         "type": "array",
@@ -92,7 +92,7 @@
           "POST"
         ]
       },
-      "oAuthTokenEndpointUrl" :{
+      "oAuthTokenEndpointUri" :{
         "type": "string"
       },   
       "oAuthClientAuthenticationMethod" :{
@@ -116,6 +116,22 @@
       },
       "oAuthClientSecret" :{
         "type": "string"
+      },
+      "oAuthResourceOwner" :{
+        "type": "string",
+        "defaultValue": null
+      },
+      "oAuthResourceOwnerPassword" :{
+        "type": "string",
+        "defaultValue": null
+      },
+      "oAuthDefaultScope" :{
+        "type": "string",
+        "defaultValue": null
+      },
+      "oAuthSupportState" :{
+        "type": "bool",
+        "defaultValue": false
       },
       "branch":{
         "type": "string"
@@ -189,6 +205,31 @@
             "subnetResourceId": "[variables('SubnetResourceId')]"
           }
         }
+      },
+      {
+        "type": "Microsoft.ApiManagement/service/authorizationServers",
+        "name": "[(parameters('oAuthDisplayname')]",
+        "apiVersion": "2018-01-01",
+        "properties": {
+          "displayName": "[(parameters('oAuthDisplayname')]",
+          "description": "[(parameters('oAuthDescription')]",
+          "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
+          "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
+          "authorizationMethods": "[parameters('oAuthRequestMethod')]",
+          "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
+          "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
+          "supportState": "[parameters('oAuthSupportState')]",
+          "defaultScope": "[parameters('oAuthDefaultScope')]",
+          "grantTypes": "[parameters('oAuthGrantTypes')]",
+          "bearerTokenSendingMethods": "[parameters('oAuthTokenSendingMethod')]",
+          "clientId": "[parameters('oAuthClientId')]",
+          "clientSecret": "[parameters('oAuthClientSecret')]",
+          "resourceOwnerUsername": "[parameters('oAuthResourceOwner')]", 
+          "resourceOwnerPassword": "[parameters('oAuthResourceOwnerPassword')]"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
+        ]
       }
     ]
   }
