@@ -215,7 +215,7 @@
           "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
         ],
         "properties": {
-              "description": "[(parameters('oAuthDescription')]",
+              "description": "[parameters('oAuthDescription')]",
               "authorizationMethods": "[parameters('oAuthRequestMethod')]",
               "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
               "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
@@ -225,7 +225,7 @@
               "clientSecret": "[parameters('oAuthClientSecret')]",
               "resourceOwnerUsername": "[parameters('oAuthResourceOwner')]", 
               "resourceOwnerPassword": "[parameters('oAuthResourceOwnerPassword')]",
-              "displayName": "[(parameters('oAuthDisplayName')]",
+              "displayName": "[parameters('oAuthDisplayName')]",
               "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
               "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
               "grantTypes": "[parameters('oAuthGrantTypes')]",
