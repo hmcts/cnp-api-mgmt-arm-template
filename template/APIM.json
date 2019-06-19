@@ -85,7 +85,7 @@
         "type": "string"
       }, 
       "oAuthRequestMethod":{
-        "type": "array",
+        "type": "string",
         "defaultValue": "GET",
         "allowedValues": [
           "GET",
@@ -96,7 +96,7 @@
         "type": "string"
       },   
       "oAuthClientAuthenticationMethod":{
-        "type": "array",
+        "type": "string",
         "defaultValue": "Basic",
         "allowedValues": [
           "Basic",
@@ -104,7 +104,7 @@
         ]
       },           
       "oAuthTokenSendingMethod":{
-        "type": "array",
+        "type": "string",
         "defaultValue": "authorizationHeader",
         "allowedValues": [
           "authorizationHeader",
