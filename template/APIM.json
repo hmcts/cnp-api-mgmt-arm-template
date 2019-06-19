@@ -72,7 +72,7 @@
         "defaultValue": null
       },
       "oAuthGrantTypes":{
-        "type": "array",
+        "type": "string",
         "defaultValue": "authorizationCode",
         "allowedValues": [
           "authorizationCode",
