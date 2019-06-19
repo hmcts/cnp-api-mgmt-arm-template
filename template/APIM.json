@@ -130,7 +130,7 @@
         "defaultValue": null
       },
       "oAuthSupportState":{
-        "type": "boolean",
+        "type": "bool",
         "defaultValue": false
       },
       "branch":{
