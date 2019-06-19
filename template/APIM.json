@@ -208,7 +208,7 @@
         }
       },
       {
-        "name": "string",
+        "name": "[variables('AuthorizationServerName')]",
         "type": "Microsoft.ApiManagement/service/authorizationServers",
         "apiVersion": "2019-01-01",
         "dependsOn": [
