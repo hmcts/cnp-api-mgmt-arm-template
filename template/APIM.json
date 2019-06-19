@@ -52,7 +52,7 @@
         "description": "Environment to be deployed in to."
         }
       },
-      "virtualNetworkType" :{
+      "virtualNetworkType":{
         "type": "string",
         "defaultValue": "External",
         "allowedValues": [
@@ -60,18 +60,18 @@
           "External"
         ]
       },
-      "oAuthDisplayName" :{
+      "oAuthDisplayName":{
         "type": "string"
       }, 
       "oAuthDescription" :{
         "type": "string",
         "defaultValue": null
       },
-      "oAuthClientRegistrationEndpoint" :{
+      "oAuthClientRegistrationEndpoint":{
         "type": "string",
         "defaultValue": null
       },
-      "oAuthGrantTypes" :{
+      "oAuthGrantTypes":{
         "type": "string",
         "defaultValue": "authorizationCode",
         "allowedValues": [
@@ -81,10 +81,10 @@
           "clientCredentials"
         ]
       },
-      "oAuthEndpointUrl" :{
+      "oAuthEndpointUrl":{
         "type": "string"
       }, 
-      "oAuthRequestMethod" :{
+      "oAuthRequestMethod":{
         "type": "string",
         "defaultValue": "GET",
         "allowedValues": [
@@ -92,10 +92,10 @@
           "POST"
         ]
       },
-      "oAuthTokenEndpointUri" :{
+      "oAuthTokenEndpointUri":{
         "type": "string"
       },   
-      "oAuthClientAuthenticationMethod" :{
+      "oAuthClientAuthenticationMethod":{
         "type": "string",
         "defaultValue": "Basic",
         "allowedValues": [
@@ -103,7 +103,7 @@
           "Body"
         ]
       },           
-      "oAuthTokenSendingMethod" :{
+      "oAuthTokenSendingMethod":{
         "type": "string",
         "defaultValue": "authorizationHeader",
         "allowedValues": [
@@ -111,56 +111,56 @@
           "query"
         ]
       },
-      "oAuthClientId" :{
+      "oAuthClientId":{
         "type": "string"
       },
-      "oAuthClientSecret" :{
+      "oAuthClientSecret":{
         "type": "string"
       },
-      "oAuthResourceOwner" :{
+      "oAuthResourceOwner":{
         "type": "string",
         "defaultValue": null
       },
-      "oAuthResourceOwnerPassword" :{
+      "oAuthResourceOwnerPassword":{
         "type": "string",
         "defaultValue": null
       },
-      "oAuthDefaultScope" :{
+      "oAuthDefaultScope":{
         "type": "string",
         "defaultValue": null
       },
-      "oAuthSupportState" :{
+      "oAuthSupportState":{
         "type": "bool",
         "defaultValue": false
       },
       "branch":{
         "type": "string"
       },
-      "managedBy": {
+      "managedBy":{
         "type": "string"
       },
-      "solutionOwner": {
+      "solutionOwner":{
         "type": "string"
       },
-      "activityName": {
+      "activityName":{
         "type": "string"
       },
-      "dataClassification": {
+      "dataClassification":{
         "type": "string"
       },
-      "automation": {
+      "automation":{
         "type": "string"
       },
-      "costCentre": {
+      "costCentre":{
         "type": "string"
       },
-      "environment": {
+      "environment":{
         "type": "string"
       },
-      "criticality": {
+      "criticality":{
         "type": "string"
       },
-      "shortName": {
+      "shortName":{
         "type": "string",
         "metadata": {
           "description": "Environment short nme used for resource group allocation"
