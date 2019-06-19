@@ -60,7 +60,7 @@
           "External"
         ]
       },
-      "oAuthDisplayname" :{
+      "oAuthDisplayName" :{
         "type": "string"
       }, 
       "oAuthDescription" :{
@@ -212,7 +212,7 @@
         "name": "[variables('AuthorizationServerName')]",
         "apiVersion": "2018-01-01",
         "properties": {
-          "displayName": "[(parameters('oAuthDisplayname')]",
+          "displayName": "[(parameters('oAuthDisplayName')]",
           "description": "[(parameters('oAuthDescription')]",
           "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
           "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
