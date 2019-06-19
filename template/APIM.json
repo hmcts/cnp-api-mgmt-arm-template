@@ -173,7 +173,8 @@
       "VirtualNetworkResourceGroup" : "[concat('core-infra-',parameters('shortName'))]",
       "VirtualNetworkName" : "[concat('core-infra-vnet-',parameters('shortName'))]",
       "VirtualNetworkSubnetName" : "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
-      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]"
+      "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]",
+      "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/idam-aat')]"
     },
     "resources": [
       {
@@ -208,7 +209,7 @@
       },
       {
         "type": "Microsoft.ApiManagement/service/authorizationServers",
-        "name": "[concat(variables('apiManagementServiceName'), '/idam-aat')]",
+        "name": "[variables('AuthorizationServerName')]",
         "apiVersion": "2018-01-01",
         "properties": {
           "displayName": "[(parameters('oAuthDisplayname')]",
