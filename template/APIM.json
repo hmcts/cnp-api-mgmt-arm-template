@@ -208,7 +208,7 @@
       },
       {
         "type": "Microsoft.ApiManagement/service/authorizationServers",
-        "name": "[(parameters('oAuthDisplayname')]",
+        "name": "[concat(variables('apiManagementServiceName'), '/idam-aat')]",
         "apiVersion": "2018-01-01",
         "properties": {
           "displayName": "[(parameters('oAuthDisplayname')]",
