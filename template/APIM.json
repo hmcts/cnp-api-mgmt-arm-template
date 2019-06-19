@@ -60,6 +60,63 @@
           "External"
         ]
       },
+      "oAuthDisplayname" :{
+        "type": "string"
+      }, 
+      "oAuthDescription" :{
+        "type": "string",
+        "defaultValue": "null"
+      },
+      "oAuthClientRegistrationUrl" :{
+        "type": "string",
+        "defaultValue": "null"
+      },
+      "oAuthGrantTypes" :{
+        "type": "array",
+        "defaultValue": "authorizationCode",
+        "allowedValues": [
+          "authorizationCode",
+          "implicit",
+          "resourceOwnerPassword",
+          "clientCredentials"
+        ]
+      },
+      "oAuthEndpointUrl" :{
+        "type": "string"
+      }, 
+      "oAuthRequestMethod" :{
+        "type": "array",
+        "defaultValue": "GET",
+        "allowedValues": [
+          "GET",
+          "POST"
+        ]
+      },
+      "oAuthTokenEndpointUrl" :{
+        "type": "string"
+      },   
+      "oAuthClientAuthenticationMethod" :{
+        "type": "array",
+        "defaultValue": "Basic",
+        "allowedValues": [
+          "Basic",
+          "Body"
+        ]
+      },           
+      "oAuthTokenSendingMethod" :{
+        "type": "array",
+        "defaultValue": "authorizationHeader",
+        "allowedValues": [
+          "authorizationHeader",
+          "query"
+        ]
+      },
+      "oAuthClientId" :{
+        "type": "string"
+      },
+      "oAuthClientSecret" :{
+        "type": "string"
+      },
       "branch":{
         "type": "string"
       },
