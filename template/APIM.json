@@ -206,7 +206,7 @@
       {
         "name": "[variables('AuthorizationServerName')]",
         "type": "Microsoft.ApiManagement/service/authorizationServers",
-        "apiVersion": "2019-01-01",
+        "apiVersion": "2018-01-01",
         "dependsOn": [
           "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
         ],
