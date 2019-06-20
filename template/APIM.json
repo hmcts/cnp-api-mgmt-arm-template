@@ -72,39 +72,45 @@
       "defaultValue": null
     },
     "oAuthGrantTypes": {
-      "type": "string",
-      "defaultValue": "authorizationCode",
+      "type": "array",
+      "defaultValue": ["authorizationCode"],
       "allowedValues": [
-        "authorizationCode",
-        "implicit",
-        "resourceOwnerPassword",
-        "clientCredentials"
+        ["authorizationCode"],
+        ["implicit"],
+        ["resourceOwnerPassword"],
+        ["clientCredentials"]
       ]
     },
     "oAuthEndpointUrl": {
       "type": "string"
     },
-    "oAuthRequestMethod": {
+    "oAuthMethods": {
       "type": "array",
-      "defaultValue": ["GET"]
+      "defaultValue": ["GET"],
+      "allowedValues": [
+        ["GET"],
+        ["GET", "POST"]
+      ]
     },
     "oAuthTokenEndpointUri": {
       "type": "string"
     },
     "oAuthClientAuthenticationMethod": {
-      "type": "string",
-      "defaultValue": "Basic",
+      "type": "array",
+      "defaultValue": ["Basic"],
       "allowedValues": [
-        "Basic",
-        "Body"
+        ["Basic"],
+        ["Body"],
+        ["Basic", "Body"]
       ]
     },
     "oAuthTokenSendingMethod": {
-      "type": "string",
-      "defaultValue": "authorizationHeader",
+      "type": "array",
+      "defaultValue": ["authorizationHeader"],
       "allowedValues": [
-        "authorizationHeader",
-        "query"
+        ["authorizationHeader"],
+        ["query"],
+        ["authorizationHeader", "query"]
       ]
     },
     "oAuthClientId": {
@@ -212,7 +218,7 @@
       ],
       "properties": {
         "description": "[parameters('oAuthDescription')]",
-        "authorizationMethods": "[parameters('oAuthRequestMethod')]",
+        "authorizationMethods": "[parameters('oAuthMethods')]",
         "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
         "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
         "supportState": "[parameters('oAuthSupportState')]",
