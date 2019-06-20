@@ -85,8 +85,8 @@
       "type": "string"
     },
     "oAuthRequestMethod": {
-      "type": "string",
-      "defaultValue": "GET"
+      "type": "array",
+      "defaultValue": ["GET"]
     },
     "oAuthTokenEndpointUri": {
       "type": "string"
