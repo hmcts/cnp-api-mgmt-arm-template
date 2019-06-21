@@ -60,6 +60,10 @@
         "External"
       ]
     },
+    "identity": {
+      "type": "string",
+      "defaultValue": "SystemAssigned"
+    },
     "oAuthDisplayName": {
       "type": "string"
     },
@@ -232,6 +236,9 @@
         "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
         "grantTypes": "[parameters('oAuthGrantTypes')]",
         "clientId": "[parameters('oAuthClientId')]"
+      },
+      "identity": {
+        "type": "[parameters('identity')]"
       }
     }
   ]
