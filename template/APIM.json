@@ -60,7 +60,7 @@
         "External"
       ]
     },
-    "identity": {
+    "managedIdentity": {
       "type": "string",
       "defaultValue": "SystemAssigned"
     },
@@ -238,7 +238,7 @@
         "clientId": "[parameters('oAuthClientId')]"
       },
       "identity": {
-        "type": "[parameters('identity')]"
+        "type": "[parameters('managedIdentity')]"
       }
     }
   ]
