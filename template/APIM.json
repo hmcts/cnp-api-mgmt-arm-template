@@ -207,6 +207,9 @@
         "virtualNetworkConfiguration": {
           "subnetResourceId": "[variables('SubnetResourceId')]"
         }
+      },
+      "identity": {
+        "type": "SystemAssigned"
       }
     },
     {
@@ -232,9 +235,6 @@
         "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
         "grantTypes": "[parameters('oAuthGrantTypes')]",
         "clientId": "[parameters('oAuthClientId')]"
-      },
-      "identity": {
-        "type": "SystemAssigned"
       }
     }
   ]
