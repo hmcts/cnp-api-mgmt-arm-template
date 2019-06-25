@@ -180,7 +180,7 @@
   },
   "resources": [
     {
-      "apiVersion": "2018-01-01",
+      "apiVersion": "2019-01-01",
       "name": "[variables('apiManagementServiceName')]",
       "type": "Microsoft.ApiManagement/service",
       "location": "[parameters('location')]",
@@ -207,6 +207,9 @@
         "virtualNetworkConfiguration": {
           "subnetResourceId": "[variables('SubnetResourceId')]"
         }
+      },
+      "identity": {
+        "type": "SystemAssigned"
       }
     },
     {
