@@ -131,9 +131,20 @@
       "type": "string",
       "defaultValue": null
     },
-    "oAuthSupportState": {
-      "type": "bool",
-      "defaultValue": false
+    "ccd-keyvault-name": {
+      "type": "string"
+    },
+    "ccd-service-key-name": {
+      "type": "string"
+    },
+    "ccd-totp-url": {
+      "type": "string"
+    },
+    "ccd-s2s-url": {
+      "type": "string"
+    },
+    "ccd-backend-url": {
+      "type": "string"
     },
     "branch": {
       "type": "string"
@@ -235,6 +246,15 @@
         "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
         "grantTypes": "[parameters('oAuthGrantTypes')]",
         "clientId": "[parameters('oAuthClientId')]"
+      }
+    },
+    {
+      "name": "[parameters('policyName')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "value": "<!--\r\n    IMPORTANT:\r\n    - Policy elements can appear only within the <inbound>, <outbound>, <backend> section elements.\r\n    - To apply a policy to the incoming request (before it is forwarded to the backend service), place a corresponding policy element within the <inbound> section element.\r\n    - To apply a policy to the outgoing response (before it is sent back to the caller), place a corresponding policy element within the <outbound> section element.\r\n    - To add a policy, place the cursor at the desired insertion point and select a policy from the sidebar.\r\n    - To remove a policy, delete the corresponding policy statement from the policy document.\r\n    - Position the <base> element within a section element to inherit all policies from the corresponding section element in the enclosing scope.\r\n    - Remove the <base> element to prevent inheriting policies from the corresponding section element in the enclosing scope.\r\n    - Policies are applied in the order of their appearance, from the top down.\r\n    - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.\r\n-->\r\n<policies>\r\n  <inbound>\r\n    <base />\r\n    <send-request mode=\"new\" response-variable-name=\"token\" timeout=\"20\" ignore-error=\"false\">\r\n      <set-url>https://{{ccd-keyvault-name}}.vault.azure.net/secrets/{{ccd-service-key-name}}/?api-version=7.0</set-url>\r\n      <set-method>GET</set-method>\r\n      <authentication-managed-identity resource=\"https://vault.azure.net\" />\r\n    </send-request>\r\n    <send-request mode=\"new\" response-variable-name=\"otp\" timeout=\"20\" ignore-error=\"true\">\r\n      <set-url>{{ccd-totp-url}}</set-url>\r\n      <set-method>GET</set-method>\r\n      <set-header name=\"service-key\" exists-action=\"override\">\r\n        <value>@{ return (((IResponse)context.Variables[\"token\"]).Body.As&lt;JObject&gt;()[\"value\"].ToString()); }</value>\r\n      </set-header>\r\n    </send-request>\r\n    <send-request mode=\"new\" response-variable-name=\"s2s\" timeout=\"20\" ignore-error=\"false\">\r\n      <set-url>{{ccd-s2s-url}}</set-url>\r\n      <set-method>POST</set-method>\r\n      <set-header name=\"Content-Type\" exists-action=\"override\">\r\n        <value>application/json</value>\r\n      </set-header>\r\n      <set-body>@{\r\n                        return new JObject(\r\n                            new JProperty(\"microservice\",\"ccd_gw\"),\r\n                            new JProperty(\"oneTimePassword\", (((IResponse)context.Variables[\"otp\"]).Body.As&lt;JObject&gt;()[\"totp\"].ToString()))\r\n                        ).ToString();\r\n                    }</set-body>\r\n    </send-request>\r\n  </inbound>\r\n  <backend>\r\n    <base />\r\n  </backend>\r\n  <outbound>\r\n    <base />\r\n  </outbound>\r\n  <on-error>\r\n    <base />\r\n  </on-error>\r\n</policies>",
+        "format": "xml"
       }
     }
   ]
