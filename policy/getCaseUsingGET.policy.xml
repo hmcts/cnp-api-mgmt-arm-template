@@ -11,22 +11,22 @@
     - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.
 -->
 <policies>
-	<inbound>
-		<base />
-		<set-backend-service base-url="{{ccd-backend-url}}" />
+    <inbound>
+        <base />
+        <set-backend-service base-url="{{ccd-backend-url}}" />
 		<!-- Get the cached value and store is as the `s2s_value` variable-->
-		<cache-lookup-value key="@("s2s-cache")" variable-name="s2s_value" />
-		<set-header name="ServiceAuthorization" exists-action="override">
-			<value>@{ return ((string)context.Variables["s2s_value"]); }</value>
-		</set-header>
-	</inbound>
-	<backend>
-		<base />
-	</backend>
-	<outbound>
-		<base />
-	</outbound>
-	<on-error>
-		<base />
-	</on-error>
+        <cache-lookup-value key="@("s2s-cache")" variable-name="s2s_value" />
+        <set-header name="ServiceAuthorization" exists-action="override">
+            <value>@{ return ((string)context.Variables["s2s_value"]); }</value>
+        </set-header>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
 </policies>

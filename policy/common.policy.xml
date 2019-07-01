@@ -11,51 +11,53 @@
     - Comments within policy elements are not supported and may disappear. Place your comments between policy elements or at a higher level scope.
 -->
 <policies>
-	<inbound>
-		<base />
-		<cache-lookup-value key="@("s2s-cache")" variable-name="s2s-cache" />
-		<!-- If API Management doesn’t find it in the cache, make a request for it and store it -->
-		<choose>
-			<when condition="@(!context.Variables.ContainsKey("s2s-cache"))">
-				<!-- Key seed from keyvault -->
-				<send-request mode="new" response-variable-name="token" timeout="20" ignore-error="false">
-					<set-url>https://{{ccd-keyvault-name}}.vault.azure.net/secrets/{{ccd-service-key-name}}/?api-version=7.0</set-url>
-					<set-method>GET</set-method>
-					<authentication-managed-identity resource="https://vault.azure.net" />
-				</send-request>
-				<!-- Compute OTP -->
-				<send-request mode="new" response-variable-name="otp" timeout="20" ignore-error="true">
-					<set-url>{{ccd-totp-url}}</set-url>
-					<set-method>GET</set-method>
-					<set-header name="service-key" exists-action="override">
-						<value>@{ return (((IResponse)context.Variables["token"]).Body.As<JObject>()["value"].ToString()); }</value>
-						</set-header>
-					</send-request>
-					<!-- generate S2S token -->
-					<send-request mode="new" response-variable-name="s2s" timeout="20" ignore-error="false">
-						<set-url>{{ccd-s2s-url}}</set-url>
-						<set-method>POST</set-method>
-						<set-header name="Content-Type" exists-action="override">
-							<value>application/json</value>
-						</set-header>
-						<set-body>@{return new JObject(
-									new JProperty("microservice","{{ccd-microservice-name}}"),
-									new JProperty("oneTimePassword", (((IResponse)context.Variables["otp"]).Body.As<JObject>()["totp"].ToString()))
-								).ToString();}</set-body>
-						</send-request>
-						<set-backend-service base-url="{{ccd-backend-url}}" />
-						<!-- Store result in cache for 4 hours-->
-						<cache-store-value key="@("s2s-cache")" value="@(((IResponse)context.Variables["s2s"]).Body.As<string>().ToString())" duration="14400" />
-					</when>
-				</choose>
-			</inbound>
-			<backend>
-				<base />
-			</backend>
-			<outbound>
-				<base />
-			</outbound>
-			<on-error>
-				<base />
-			</on-error>
-		</policies>
+    <inbound>
+        <base />
+        <cache-lookup-value key="@("s2s-cache")" variable-name="s2s-cache" />
+        <!-- If API Management doesn’t find it in the cache, make a request for it and store it -->
+        <choose>
+            <when condition="@(!context.Variables.ContainsKey("s2s-cache"))">
+                <!-- Key seed from keyvault -->
+                <send-request mode="new" response-variable-name="token" timeout="20" ignore-error="false">
+                    <set-url>https://{{ccd-keyvault-name}}.vault.azure.net/secrets/{{ccd-service-key-name}}/?api-version=7.0</set-url>
+                    <set-method>GET</set-method>
+                    <authentication-managed-identity resource="https://vault.azure.net" />
+                </send-request>
+                <!-- Compute OTP -->
+                <send-request mode="new" response-variable-name="otp" timeout="20" ignore-error="false">
+                    <set-url>{{ccd-totp-url}}</set-url>
+                    <set-method>GET</set-method>
+                    <set-header name="service-key" exists-action="override">
+                        <value>@{ return (((IResponse)context.Variables["token"]).Body.As<JObject>()["value"].ToString()); }</value>
+                    </set-header>
+                </send-request>
+                <!-- generate S2S token -->
+                <send-request mode="new" response-variable-name="s2s" timeout="20" ignore-error="false">
+                    <set-url>{{ccd-s2s-url}}</set-url>
+                    <set-method>POST</set-method>
+                    <set-header name="Content-Type" exists-action="override">
+                        <value>application/json</value>
+                    </set-header>
+                    <set-body>@{
+                        return new JObject(
+                            new JProperty("microservice","{{ccd-microservice-name}}"),
+                            new JProperty("oneTimePassword", (((IResponse)context.Variables["otp"]).Body.As<JObject>()["totp"].ToString()))
+                        ).ToString();
+                    }</set-body>
+                </send-request>
+                <set-backend-service base-url="{{ccd-backend-url}}" />
+                <!-- Store result in cache for 4 hours-->
+                <cache-store-value key="@("s2s-cache")" value="@(((IResponse)context.Variables["s2s"]).Body.As<string>().ToString())" duration="14400" />
+            </when>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
