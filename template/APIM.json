@@ -131,10 +131,6 @@
       "type": "string",
       "defaultValue": null
     },
-    "oAuthSupportState": {
-      "type": "bool",
-      "defaultValue": false
-    },
     "branch": {
       "type": "string"
     },

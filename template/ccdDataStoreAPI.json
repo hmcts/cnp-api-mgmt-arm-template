@@ -1,0 +1,94 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "environmentName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the system environment"
+        }
+      },
+      "apiName": {
+        "type": "string"
+      },
+      "apiDescription": {
+        "type": "string"
+      },
+      "apiSubscriptionRequired": {
+        "type": "bool"
+      },
+      "apiServiceUrl": {
+        "type": "string"
+      },
+      "apiPath": {
+        "type": "string"
+      },
+      "apiContentValue": {
+        "type": "string"
+      },
+      "apiPolicyUrl": {
+        "type": "string"
+      },
+      "shortName": {
+        "type": "string",
+        "metadata": {
+          "description": "The short name of the system environment"
+        }
+      },
+        "ccd-keyvault-name": {
+        "type": "string"
+      },
+        "ccd-service-key-name": {
+        "type": "string"
+      },
+        "ccd-totp-url": {
+        "type": "string"
+      },
+        "ccd-s2s-url": {
+        "type": "string"
+      },
+        "ccd-backend-url": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
+      "apiManagementResourceGroup": "[concat('core-infra-',parameters('shortName'))]",
+      "apiManangementResourceId": "[resourceId(variables('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',variables('apiManagementServiceName'))]"
+    },
+    "resources": [
+      {
+        "type": "Microsoft.ApiManagement/service/apis",
+        "name": "[concat(variables('apiManagementServiceName'), parameters'(apiName)]",
+        "apiVersion": "2019-01-01",
+        "dependsOn": [
+          "[variables('apiManangementResourceId')]"
+        ],
+        "properties": {
+            "displayName": "[parameters('apiName')]",
+            "apiRevision": "1",
+            "serviceUrl": "[parameters('apiServiceUrl')]",
+            "description": "[parameters('apiDescription')]",
+            "subscriptionRequired": "[parameters('apiSubscriptionRequired')]",
+            "path": "[parameters('apiPath')]",
+            "protocols": [
+                "https"
+            ],
+            "authenticationSettings": null,
+            "subscriptionKeyParameterNames": null,
+            "contentValue": "[parameters('apiContentValue')]",
+            "contentFormat": "swagger-link-json"
+        }
+      },
+      {
+        "name": "[parameters('policyName')]",
+        "type": "Microsoft.ApiManagement/service/apis/policies",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "value": "[parameters('apiPolicyUrl')]",
+          "format": "rawxml-link"
+        }
+      }
+    ]
+  }
+  
