@@ -44,8 +44,8 @@
 								).ToString();}</set-body>
 						</send-request>
 						<set-backend-service base-url="{{ccd-backend-url}}" />
-						<!-- Store result in cache -->
-						<cache-store-value key="@("s2s-cache")" value="@(((IResponse)context.Variables["s2s"]).Body.As<string>().ToString())" duration="3600" />
+						<!-- Store result in cache for 4 hours-->
+						<cache-store-value key="@("s2s-cache")" value="@(((IResponse)context.Variables["s2s"]).Body.As<string>().ToString())" duration="14400" />
 					</when>
 				</choose>
 			</inbound>
