@@ -15,19 +15,34 @@
         "type": "string"
       },
       "apiSubscriptionRequired": {
-        "type": "bool"
+        "type": "bool",
+        "metadata": {
+          "description": "Specifies whether an API or Product subscription is required for accessing the API."
+        }
       },
       "apiServiceUrl": {
-        "type": "string"
+        "type": "string",
+        "metadata": {
+          "description": "Absolute URL of the backend service implementing this API."
+        }
       },
       "apiPath": {
-        "type": "string"
+        "type": "string",
+        "metadata": {
+          "description": "Relative URL uniquely identifying this API and all of its resource paths within the API Management service instance. It is appended to the API endpoint base URL specified during the service instance creation to form a public URL for this API."
+        }
       },
       "apiContentValue": {
-        "type": "string"
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of Swagger JSON Doc"
+        }
       },
       "apiPolicyUrl": {
-        "type": "string"
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of API Policy in XML Format"
+        }
       },
       "shortName": {
         "type": "string",
