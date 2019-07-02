@@ -29,6 +29,10 @@
       "apiPolicyUrl": {
         "type": "string"
       },
+      "namedValueTag": {
+        "type": "string",
+        "defaultValue": "ccd"
+      },
       "shortName": {
         "type": "string",
         "metadata": {
@@ -48,6 +52,9 @@
         "type": "string"
       },
         "ccd-backend-url": {
+        "type": "string"
+      },
+        "ccd-microservice-name": {
         "type": "string"
       }
     },
@@ -78,6 +85,84 @@
             "subscriptionKeyParameterNames": null,
             "contentValue": "[parameters('apiContentValue')]",
             "contentFormat": "swagger-link-json"
+        }
+      },
+      {
+        "name": "ccd-backend-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-backend-url",
+          "value": "[parameters('ccd-backend-url')]"
+        }
+      },
+      {
+        "name": "ccd-service-key-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-service-key-name",
+          "value": "[parameters('ccd-service-key-name')]"
+        }
+      },
+      {
+        "name": "ccd-totp-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-totp-url",
+          "value": "[parameters('ccd-totp-url')]"
+        }
+      },
+      {
+        "name": "ccd-s2s-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-s2s-url",
+          "value": "[parameters('ccd-s2s-url')]"
+        }
+      },
+      {
+        "name": "ccd-keyvault-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-keyvault-name",
+          "value": "[parameters('ccd-keyvault-name')]"
+        }
+      },
+      {
+        "name": "ccd-microservice-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "secret": false,
+          "displayName": "ccd-microservice-name",
+          "value": "[parameters('ccd-microservice-name')]"
         }
       },
       {
