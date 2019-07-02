@@ -29,10 +29,6 @@
       "apiPolicyUrl": {
         "type": "string"
       },
-      "namedValueTag": {
-        "type": "string",
-        "defaultValue": "ccd"
-      },
       "shortName": {
         "type": "string",
         "metadata": {
