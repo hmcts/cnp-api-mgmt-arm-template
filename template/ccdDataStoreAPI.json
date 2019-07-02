@@ -92,10 +92,8 @@
             "protocols": [
                 "https"
             ],
-            "authenticationSettings": null,
-            "subscriptionKeyParameterNames": null,
-            "contentValue": "[parameters('apiContentValue')]",
-            "contentFormat": "swagger-link-json"
+            "value": "[parameters('apiContentValue')]",
+            "format": "swagger-link-json"
         }
       },
       {
