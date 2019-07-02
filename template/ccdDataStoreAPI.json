@@ -91,7 +91,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-backend-url",
           "value": "[parameters('ccd-backend-url')]"
         }
@@ -104,7 +103,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-service-key-name",
           "value": "[parameters('ccd-service-key-name')]"
         }
@@ -117,7 +115,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-totp-url",
           "value": "[parameters('ccd-totp-url')]"
         }
@@ -130,7 +127,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-s2s-url",
           "value": "[parameters('ccd-s2s-url')]"
         }
@@ -143,7 +139,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-keyvault-name",
           "value": "[parameters('ccd-keyvault-name')]"
         }
@@ -156,7 +151,6 @@
           "tags": [
             "ccd"
           ],
-          "secret": false,
           "displayName": "ccd-microservice-name",
           "value": "[parameters('ccd-microservice-name')]"
         }
