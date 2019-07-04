@@ -2,12 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "environmentName": {
-        "type": "string",
-        "metadata": {
-          "description": "The name of the system environment"
-        }
-      },
       "apiManagementName": {
         "type": "string",
         "defaultValue": "core-api-mgmt-*"
@@ -59,18 +53,6 @@
           "description": "Raw Github URL of API Common Policy in XML Format"
         }
       },
-      "operationalPolicyName": {
-        "type": "string",
-        "metadata": {
-          "description": "Name of Operational Policy"
-        }
-      },
-      "operationalPolicyUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "Raw Github URL of API Operational Policy in XML Format"
-        }
-      },
         "ccd-keyvault-name": {
         "type": "string"
       },
@@ -91,12 +73,14 @@
       }
     },
     "variables": {
-      "apiManangementResourceId": "[resourceId(parameters('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',parameters('apiManagementName'))]"
+      "apiManangementResourceId": "[resourceId(parameters('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',parameters('apiManagementName'))]",
+      "apiResourceName": "[concat(parameters('apiManagementName'), '/', parameters('apiName'))]",
+      "apiCommonPolicyName": "[concat(parameters('apiManagementName'), '/', parameters('commonPolicyName'))]"
     },
     "resources": [
       {
         "type": "Microsoft.ApiManagement/service/apis",
-        "name": "[concat(variables('apiManagementName'), parameters'(apiName)]",
+        "name": "[concat(variables('apiManangementResourceId'), '/', parameters('apiName'))]",
         "apiVersion": "2019-01-01",
         "dependsOn": [
           "[variables('apiManangementResourceId')]"
@@ -116,11 +100,10 @@
         }
       },
       {
-        "name": "[parameters('commonPolicyName')]",
-        "type": "Microsoft.ApiManagement/service/apis/policies",
+        "name": "[concat(variables('apiManangementResourceId'), '/', parameters('commonPolicyName'))]",
+        "type": "Microsoft.ApiManagement/service/policies",
         "apiVersion": "2019-01-01",
         "dependsOn": [
-          "[concat(parameters('apiManagementName'), parameters'(apiName)]"
         ],
         "properties": {
           "value": "[parameters('commonPolicyUrl')]",
@@ -128,19 +111,7 @@
         }
       },
       {
-        "name": "[parameters('operationalPolicyName')]",
-        "type": "Microsoft.ApiManagement/service/apis/policies",
-        "apiVersion": "2019-01-01",
-        "dependsOn": [
-          "[concat(parameters('apiManagementName'), parameters'(apiName)]"
-        ],
-        "properties": {
-          "value": "[parameters('operationalPolicyUrl')]",
-          "format": "rawxml-link"
-        }
-      },
-      {
-        "name": "ccd-backend-url",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-backend-url')]",
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
@@ -152,7 +123,7 @@
         }
       },
       {
-        "name": "ccd-service-key-name",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-service-key-name')]",
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
@@ -164,7 +135,7 @@
         }
       },
       {
-        "name": "ccd-totp-url",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-totp-url')]", 
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
@@ -176,7 +147,7 @@
         }
       },
       {
-        "name": "ccd-s2s-url",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-s2s-url')]", 
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
@@ -188,7 +159,7 @@
         }
       },
       {
-        "name": "ccd-keyvault-name",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-keyvault-name')]",
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
@@ -200,7 +171,7 @@
         }
       },
       {
-        "name": "ccd-microservice-name",
+        "name": "[concat(variables('apiManangementResourceId'), '/ccd-microservice-name')]",
         "type": "Microsoft.ApiManagement/service/properties",
         "apiVersion": "2019-01-01",
         "properties": {
