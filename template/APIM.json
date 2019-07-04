@@ -52,6 +52,18 @@
         "description": "Environment to be deployed in to."
       }
     },
+    "vNetResourceGroup": {
+      "type": "string",
+      "defaultValue": "core-infra-*"
+    },
+    "vNetName": {
+      "type": "string",
+      "defaultValue": "core-infra-vnet-*"
+    },
+    "vNetSubnetName": {
+      "type": "string",
+      "defaultValue": "core-infra-subnet-apimgmt-*"
+    },
     "virtualNetworkType": {
       "type": "string",
       "defaultValue": "External",
@@ -168,10 +180,7 @@
   "variables": {
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "apiManagementSubnet": "[concat('core-api-mgmt-',parameters('environmentName'))]",
-    "VirtualNetworkResourceGroup": "[concat('core-infra-',parameters('shortName'))]",
-    "VirtualNetworkName": "[concat('core-infra-vnet-',parameters('shortName'))]",
-    "VirtualNetworkSubnetName": "[concat('core-infra-subnet-apimgmt-',parameters('shortName'))]",
-    "SubnetResourceId": "[resourceId(variables('VirtualNetworkResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',variables('VirtualNetworkName'),variables('VirtualNetworkSubnetName'))]",
+    "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
     "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/idam-aat')]"
   },
   "resources": [
@@ -223,7 +232,6 @@
         "authorizationMethods": "[parameters('oAuthMethods')]",
         "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
         "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
-        "supportState": "[parameters('oAuthSupportState')]",
         "defaultScope": "[parameters('oAuthDefaultScope')]",
         "bearerTokenSendingMethods": "[parameters('oAuthTokenSendingMethod')]",
         "clientSecret": "[parameters('oAuthClientSecret')]",

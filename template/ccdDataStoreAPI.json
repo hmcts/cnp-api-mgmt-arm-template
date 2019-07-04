@@ -15,24 +15,34 @@
         "type": "string"
       },
       "apiSubscriptionRequired": {
-        "type": "bool"
+        "type": "bool",
+        "defaultValue": true,
+        "metadata": {
+          "description": "Specifies whether an API or Product subscription is required for accessing the API."
+        }
       },
       "apiServiceUrl": {
-        "type": "string"
-      },
-      "apiPath": {
-        "type": "string"
-      },
-      "apiContentValue": {
-        "type": "string"
-      },
-      "apiPolicyUrl": {
-        "type": "string"
-      },
-      "shortName": {
         "type": "string",
         "metadata": {
-          "description": "The short name of the system environment"
+          "description": "Absolute URL of the backend service implementing this API."
+        }
+      },
+      "apiPath": {
+        "type": "string",
+        "metadata": {
+          "description": "Relative URL uniquely identifying this API and all of its resource paths within the API Management service instance. It is appended to the API endpoint base URL specified during the service instance creation to form a public URL for this API."
+        }
+      },
+      "apiContentValue": {
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of Swagger JSON Doc"
+        }
+      },
+      "apiPolicyUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of API Policy in XML Format"
         }
       },
         "ccd-keyvault-name": {
@@ -48,6 +58,9 @@
         "type": "string"
       },
         "ccd-backend-url": {
+        "type": "string"
+      },
+        "ccd-microservice-name": {
         "type": "string"
       }
     },
@@ -74,10 +87,80 @@
             "protocols": [
                 "https"
             ],
-            "authenticationSettings": null,
-            "subscriptionKeyParameterNames": null,
-            "contentValue": "[parameters('apiContentValue')]",
-            "contentFormat": "swagger-link-json"
+            "value": "[parameters('apiContentValue')]",
+            "format": "swagger-link-json"
+        }
+      },
+      {
+        "name": "ccd-backend-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-backend-url",
+          "value": "[parameters('ccd-backend-url')]"
+        }
+      },
+      {
+        "name": "ccd-service-key-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-service-key-name",
+          "value": "[parameters('ccd-service-key-name')]"
+        }
+      },
+      {
+        "name": "ccd-totp-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-totp-url",
+          "value": "[parameters('ccd-totp-url')]"
+        }
+      },
+      {
+        "name": "ccd-s2s-url",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-s2s-url",
+          "value": "[parameters('ccd-s2s-url')]"
+        }
+      },
+      {
+        "name": "ccd-keyvault-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-keyvault-name",
+          "value": "[parameters('ccd-keyvault-name')]"
+        }
+      },
+      {
+        "name": "ccd-microservice-name",
+        "type": "Microsoft.ApiManagement/service/properties",
+        "apiVersion": "2019-01-01",
+        "properties": {
+          "tags": [
+            "ccd"
+          ],
+          "displayName": "ccd-microservice-name",
+          "value": "[parameters('ccd-microservice-name')]"
         }
       },
       {
