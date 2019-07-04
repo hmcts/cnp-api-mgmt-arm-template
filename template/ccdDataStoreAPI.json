@@ -8,6 +8,14 @@
           "description": "The name of the system environment"
         }
       },
+      "apiManagementName": {
+        "type": "string",
+        "defaultValue": "core-api-mgmt-*"
+      },
+      "apiManagementResourceGroup": {
+        "type": "string",
+        "defaultValue": "core-infra-*"
+      },
       "apiName": {
         "type": "string"
       },
@@ -39,10 +47,28 @@
           "description": "Raw Github URL of Swagger JSON Doc"
         }
       },
-      "apiPolicyUrl": {
+      "commonPolicyName": {
         "type": "string",
         "metadata": {
-          "description": "Raw Github URL of API Policy in XML Format"
+          "description": "Name of Common Policy"
+        }
+      },
+      "commonPolicyUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of API Common Policy in XML Format"
+        }
+      },
+      "operationalPolicyName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of Operational Policy"
+        }
+      },
+      "operationalPolicyUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "Raw Github URL of API Operational Policy in XML Format"
         }
       },
         "ccd-keyvault-name": {
@@ -65,14 +91,12 @@
       }
     },
     "variables": {
-      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
-      "apiManagementResourceGroup": "[concat('core-infra-',parameters('shortName'))]",
-      "apiManangementResourceId": "[resourceId(variables('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',variables('apiManagementServiceName'))]"
+      "apiManangementResourceId": "[resourceId(parameters('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',parameters('apiManagementName'))]"
     },
     "resources": [
       {
         "type": "Microsoft.ApiManagement/service/apis",
-        "name": "[concat(variables('apiManagementServiceName'), parameters'(apiName)]",
+        "name": "[concat(variables('apiManagementName'), parameters'(apiName)]",
         "apiVersion": "2019-01-01",
         "dependsOn": [
           "[variables('apiManangementResourceId')]"
@@ -89,6 +113,30 @@
             ],
             "value": "[parameters('apiContentValue')]",
             "format": "swagger-link-json"
+        }
+      },
+      {
+        "name": "[parameters('commonPolicyName')]",
+        "type": "Microsoft.ApiManagement/service/apis/policies",
+        "apiVersion": "2019-01-01",
+        "dependsOn": [
+          "[concat(parameters('apiManagementName'), parameters'(apiName)]"
+        ],
+        "properties": {
+          "value": "[parameters('commonPolicyUrl')]",
+          "format": "rawxml-link"
+        }
+      },
+      {
+        "name": "[parameters('operationalPolicyName')]",
+        "type": "Microsoft.ApiManagement/service/apis/policies",
+        "apiVersion": "2019-01-01",
+        "dependsOn": [
+          "[concat(parameters('apiManagementName'), parameters'(apiName)]"
+        ],
+        "properties": {
+          "value": "[parameters('operationalPolicyUrl')]",
+          "format": "rawxml-link"
         }
       },
       {
@@ -161,15 +209,6 @@
           ],
           "displayName": "ccd-microservice-name",
           "value": "[parameters('ccd-microservice-name')]"
-        }
-      },
-      {
-        "name": "[parameters('policyName')]",
-        "type": "Microsoft.ApiManagement/service/apis/policies",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "value": "[parameters('apiPolicyUrl')]",
-          "format": "rawxml-link"
         }
       }
     ]
