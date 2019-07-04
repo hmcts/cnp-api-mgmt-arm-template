@@ -211,6 +211,9 @@
         "virtualNetworkType": "[parameters('virtualNetworkType')]",
         "virtualNetworkConfiguration": {
           "subnetResourceId": "[variables('SubnetResourceId')]"
+        },
+        "customProperties": {
+          "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "true"
         }
       },
       "identity": {
