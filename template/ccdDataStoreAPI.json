@@ -1,177 +1,219 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "environmentName": {
-        "type": "string",
-        "metadata": {
-          "description": "The name of the system environment"
-        }
-      },
-      "apiName": {
-        "type": "string"
-      },
-      "apiDescription": {
-        "type": "string"
-      },
-      "apiSubscriptionRequired": {
-        "type": "bool",
-        "defaultValue": true,
-        "metadata": {
-          "description": "Specifies whether an API or Product subscription is required for accessing the API."
-        }
-      },
-      "apiServiceUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "Absolute URL of the backend service implementing this API."
-        }
-      },
-      "apiPath": {
-        "type": "string",
-        "metadata": {
-          "description": "Relative URL uniquely identifying this API and all of its resource paths within the API Management service instance. It is appended to the API endpoint base URL specified during the service instance creation to form a public URL for this API."
-        }
-      },
-      "apiContentValue": {
-        "type": "string",
-        "metadata": {
-          "description": "Raw Github URL of Swagger JSON Doc"
-        }
-      },
-      "apiPolicyUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "Raw Github URL of API Policy in XML Format"
-        }
-      },
-        "ccd-keyvault-name": {
-        "type": "string"
-      },
-        "ccd-service-key-name": {
-        "type": "string"
-      },
-        "ccd-totp-url": {
-        "type": "string"
-      },
-        "ccd-s2s-url": {
-        "type": "string"
-      },
-        "ccd-backend-url": {
-        "type": "string"
-      },
-        "ccd-microservice-name": {
-        "type": "string"
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apiManagementName": {
+      "type": "string",
+      "defaultValue": "core-api-mgmt-*"
+    },
+    "apiManagementResourceGroup": {
+      "type": "string",
+      "defaultValue": "core-infra-*"
+    },
+    "apiName": {
+      "type": "string"
+    },
+    "apiDescription": {
+      "type": "string"
+    },
+    "apiSubscriptionRequired": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Specifies whether an API or Product subscription is required for accessing the API."
       }
     },
-    "variables": {
-      "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
-      "apiManagementResourceGroup": "[concat('core-infra-',parameters('shortName'))]",
-      "apiManangementResourceId": "[resourceId(variables('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',variables('apiManagementServiceName'))]"
+    "apiServiceUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Absolute URL of the backend service implementing this API."
+      }
     },
-    "resources": [
-      {
-        "type": "Microsoft.ApiManagement/service/apis",
-        "name": "[concat(variables('apiManagementServiceName'), parameters'(apiName)]",
-        "apiVersion": "2019-01-01",
-        "dependsOn": [
-          "[variables('apiManangementResourceId')]"
+    "apiPath": {
+      "type": "string",
+      "metadata": {
+        "description": "Relative URL uniquely identifying this API and all of its resource paths within the API Management service instance. It is appended to the API endpoint base URL specified during the service instance creation to form a public URL for this API."
+      }
+    },
+    "apiContentValue": {
+      "type": "string",
+      "metadata": {
+        "description": "Raw Github URL of Swagger JSON Doc"
+      }
+    },
+    "commonPolicyName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of Common Policy"
+      }
+    },
+    "commonPolicyUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Raw Github URL of API Common Policy in XML Format"
+      }
+    },
+    "ccd-keyvault-name": {
+      "type": "string"
+    },
+    "ccd-service-key-name": {
+      "type": "string"
+    },
+    "ccd-totp-url": {
+      "type": "string"
+    },
+    "ccd-s2s-url": {
+      "type": "string"
+    },
+    "ccd-backend-url": {
+      "type": "string"
+    },
+    "ccd-microservice-name": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "apiManangementResourceId": "[resourceId(parameters('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',parameters('apiManagementName'))]",
+    "apiResourceName": "[concat(parameters('apiManagementName'), '/', parameters('apiName'))]",
+    "apiCommonPolicyName": "[concat(parameters('apiManagementName'), '/', parameters('commonPolicyName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ApiManagement/service/apis",
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'))]",
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "displayName": "[parameters('apiName')]",
+        "apiRevision": "1",
+        "serviceUrl": "[parameters('apiServiceUrl')]",
+        "description": "[parameters('apiDescription')]",
+        "subscriptionRequired": "[parameters('apiSubscriptionRequired')]",
+        "path": "[parameters('apiPath')]",
+        "protocols": [
+          "https"
         ],
-        "properties": {
-            "displayName": "[parameters('apiName')]",
-            "apiRevision": "1",
-            "serviceUrl": "[parameters('apiServiceUrl')]",
-            "description": "[parameters('apiDescription')]",
-            "subscriptionRequired": "[parameters('apiSubscriptionRequired')]",
-            "path": "[parameters('apiPath')]",
-            "protocols": [
-                "https"
-            ],
-            "value": "[parameters('apiContentValue')]",
-            "format": "swagger-link-json"
-        }
-      },
-      {
-        "name": "ccd-backend-url",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-backend-url",
-          "value": "[parameters('ccd-backend-url')]"
-        }
-      },
-      {
-        "name": "ccd-service-key-name",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-service-key-name",
-          "value": "[parameters('ccd-service-key-name')]"
-        }
-      },
-      {
-        "name": "ccd-totp-url",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-totp-url",
-          "value": "[parameters('ccd-totp-url')]"
-        }
-      },
-      {
-        "name": "ccd-s2s-url",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-s2s-url",
-          "value": "[parameters('ccd-s2s-url')]"
-        }
-      },
-      {
-        "name": "ccd-keyvault-name",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-keyvault-name",
-          "value": "[parameters('ccd-keyvault-name')]"
-        }
-      },
-      {
-        "name": "ccd-microservice-name",
-        "type": "Microsoft.ApiManagement/service/properties",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "tags": [
-            "ccd"
-          ],
-          "displayName": "ccd-microservice-name",
-          "value": "[parameters('ccd-microservice-name')]"
-        }
-      },
-      {
-        "name": "[parameters('policyName')]",
-        "type": "Microsoft.ApiManagement/service/apis/policies",
-        "apiVersion": "2019-01-01",
-        "properties": {
-          "value": "[parameters('apiPolicyUrl')]",
-          "format": "rawxml-link"
-        }
+        "value": "[parameters('apiContentValue')]",
+        "format": "swagger-link-json"
       }
-    ]
-  }
-  
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-backend-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-backend-url",
+        "value": "[parameters('ccd-backend-url')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-service-key-name')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-service-key-name",
+        "value": "[parameters('ccd-service-key-name')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-totp-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-totp-url",
+        "value": "[parameters('ccd-totp-url')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-s2s-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-s2s-url",
+        "value": "[parameters('ccd-s2s-url')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-keyvault-name')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-keyvault-name",
+        "value": "[parameters('ccd-keyvault-name')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-microservice-name')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "tags": [
+          "ccd"
+        ],
+        "displayName": "ccd-microservice-name",
+        "value": "[parameters('ccd-microservice-name')]"
+      }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'), '/', 'policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-keyvault-name')]",
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-microservice-name')]",
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-service-key-name')]",
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-totp-url')]",
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-s2s-url')]",
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-backend-url')]"
+      ],
+      "properties": {
+        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/common.policy.xml",
+        "format": "rawxml-link"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+      "apiVersion": "2019-01-01",
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'), '/', 'getCaseUsingGET' , '/', 'policy')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-backend-url')]"
+      ],
+      "properties": {
+        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/getCaseUsingGET.policy.xml",
+        "format": "rawxml-link"
+      }
+    }
+  ]
+}
