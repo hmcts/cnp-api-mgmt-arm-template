@@ -80,11 +80,8 @@
   "resources": [
     {
       "type": "Microsoft.ApiManagement/service/apis",
-      "name": "[concat(variables('apiManangementResourceId'), '/', parameters('apiName'))]",
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'))]",
       "apiVersion": "2019-01-01",
-      "dependsOn": [
-        "[variables('apiManangementResourceId')]"
-      ],
       "properties": {
           "displayName": "[parameters('apiName')]",
           "apiRevision": "1",
@@ -100,18 +97,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/', parameters('commonPolicyName'))]",
-      "type": "Microsoft.ApiManagement/service/policies",
-      "apiVersion": "2019-01-01",
-      "dependsOn": [
-      ],
-      "properties": {
-        "value": "[parameters('commonPolicyUrl')]",
-        "format": "rawxml-link"
-      }
-    },
-    {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-backend-url')]",
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-backend-url')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
@@ -123,7 +109,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-service-key-name')]",
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-service-key-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
@@ -135,7 +121,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-totp-url')]", 
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-totp-url')]", 
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
@@ -147,7 +133,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-s2s-url')]", 
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-s2s-url')]", 
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
@@ -159,7 +145,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-keyvault-name')]",
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-keyvault-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
@@ -171,7 +157,7 @@
       }
     },
     {
-      "name": "[concat(variables('apiManangementResourceId'), '/ccd-microservice-name')]",
+      "name": "[concat(parameters('apiManagementName'), '/', 'ccd-microservice-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "apiVersion": "2019-01-01",
       "properties": {
