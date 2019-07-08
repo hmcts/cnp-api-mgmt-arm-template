@@ -72,6 +72,10 @@
         "External"
       ]
     },
+    "idamInstance": {
+      "type": "string",
+      "defaultValue": "idam-*"
+    },
     "oAuthDisplayName": {
       "type": "string"
     },
