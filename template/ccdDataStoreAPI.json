@@ -167,6 +167,30 @@
         "displayName": "ccd-microservice-name",
         "value": "[parameters('ccd-microservice-name')]"
       }
+    },
+    {
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'), '/', 'policy')]",
+      "type": "Microsoft.ApiManagement/service/apis/policies",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+      ],
+      "properties": {
+        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/common.policy.xml",
+        "format": "rawxml-link"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
+      "apiVersion": "2019-01-01",
+      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'), '/', 'getCaseUsingGET' , '/', 'policy')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), parameters('apiName'))]"
+      ],
+      "properties": {
+        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/getCaseUsingGET.policy.xml",
+        "format": "rawxml-link"
+      }
     }
   ]
 }
