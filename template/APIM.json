@@ -74,7 +74,10 @@
     },
     "idamInstance": {
       "type": "string",
-      "defaultValue": "idam-*"
+      "defaultValue": "idam-*",
+      "metadata": {
+        "description": "Idam instance to associate to"
+      }
     },
     "oAuthDisplayName": {
       "type": "string"
@@ -185,7 +188,7 @@
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "apiManagementSubnet": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
-    "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/idam-aat')]"
+    "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]"
   },
   "resources": [
     {
