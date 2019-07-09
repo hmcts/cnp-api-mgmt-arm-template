@@ -6,10 +6,6 @@
       "type": "string",
       "defaultValue": "core-api-mgmt-*"
     },
-    "apiManagementResourceGroup": {
-      "type": "string",
-      "defaultValue": "core-infra-*"
-    },
     "apiName": {
       "type": "string"
     },
@@ -41,14 +37,9 @@
         "description": "Raw Github URL of Swagger JSON Doc"
       }
     },
-    "commonPolicyName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of Common Policy"
-      }
-    },
     "commonPolicyUrl": {
       "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/common.policy.xml",
       "metadata": {
         "description": "Raw Github URL of API Common Policy in XML Format"
       }
@@ -73,9 +64,7 @@
     }
   },
   "variables": {
-    "apiManangementResourceId": "[resourceId(parameters('apiManagementResourceGroup'),'Microsoft.ApiManagement/service',parameters('apiManagementName'))]",
-    "apiResourceName": "[concat(parameters('apiManagementName'), '/', parameters('apiName'))]",
-    "apiCommonPolicyName": "[concat(parameters('apiManagementName'), '/', parameters('commonPolicyName'))]"
+    "apiManangementResourceId": "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), parameters('apiName'))]"
   },
   "resources": [
     {
@@ -100,7 +89,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-backend-url')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -115,7 +104,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-service-key-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -130,7 +119,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-totp-url')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -145,7 +134,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-s2s-url')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -160,7 +149,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-keyvault-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -175,7 +164,7 @@
       "name": "[concat(parameters('apiManagementName'), '/', 'ccd-microservice-name')]",
       "type": "Microsoft.ApiManagement/service/properties",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('apiManagementName'), 'ccd-data-store-api')]"
+        "[variables('apiManangementResourceId')]"
       ],
       "apiVersion": "2019-01-01",
       "properties": {
@@ -199,7 +188,7 @@
         "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-backend-url')]"
       ],
       "properties": {
-        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/common.policy.xml",
+        "value": "[parameters('commonPolicyUrl')]",
         "format": "rawxml-link"
       }
     },
