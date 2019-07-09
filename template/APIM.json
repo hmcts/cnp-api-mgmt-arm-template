@@ -138,18 +138,6 @@
     "oAuthClientSecret": {
       "type": "string"
     },
-    "oAuthResourceOwner": {
-      "type": "string",
-      "defaultValue": null
-    },
-    "oAuthResourceOwnerPassword": {
-      "type": "string",
-      "defaultValue": null
-    },
-    "oAuthDefaultScope": {
-      "type": "string",
-      "defaultValue": null
-    },
     "branch": {
       "type": "string"
     },
@@ -232,11 +220,8 @@
         "authorizationMethods": "[parameters('oAuthMethods')]",
         "clientAuthenticationMethod": "[parameters('oAuthClientAuthenticationMethod')]",
         "tokenEndpoint": "[parameters('oAuthTokenEndpointUri')]",
-        "defaultScope": "[parameters('oAuthDefaultScope')]",
         "bearerTokenSendingMethods": "[parameters('oAuthTokenSendingMethod')]",
         "clientSecret": "[parameters('oAuthClientSecret')]",
-        "resourceOwnerUsername": "[parameters('oAuthResourceOwner')]",
-        "resourceOwnerPassword": "[parameters('oAuthResourceOwnerPassword')]",
         "displayName": "[parameters('oAuthDisplayName')]",
         "clientRegistrationEndpoint": "[parameters('oAuthClientRegistrationEndpoint')]",
         "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
