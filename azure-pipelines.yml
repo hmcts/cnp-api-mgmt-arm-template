@@ -16,7 +16,7 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: 'Invoke-Pester -Script $(Build.SourcesDirectory)/CI -OutputFile $(Build.SourcesDirectory)/TEST-Peering.xml -OutputFormat NUnitXML -EnableExit'    
+    script: 'Invoke-Pester -Script $(Build.SourcesDirectory)/CI -OutputFile $(Build.SourcesDirectory)/TEST-ARM.xml -OutputFormat NUnitXML -EnableExit'    
 
 - task: PublishTestResults@2
   inputs:
