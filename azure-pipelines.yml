@@ -27,9 +27,9 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     Contents: |
-     template\**
-     scripts\**
-     policy\**
+     template/**
+     scripts/**
+     policy/**
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
