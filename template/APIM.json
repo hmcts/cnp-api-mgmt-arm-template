@@ -150,6 +150,10 @@
     "certificateSubject": {
       "type": "string"
     },
+    "customDomainName" : {
+      "type" : "string",
+      "defaultValue": "azure-api.net"
+    },
     "branch": {
       "type": "string"
     },
@@ -182,7 +186,7 @@
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
     "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]",
-    "hostName": "[concat(variables('apiManagementServiceName'), '.azure-api.net')]"
+    "hostName": "[concat(variables('apiManagementServiceName'), '.', parameters('customDomainName'))]"
   },
   "resources": [
     {
