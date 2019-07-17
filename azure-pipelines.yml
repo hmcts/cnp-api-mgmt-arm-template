@@ -16,7 +16,7 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: 'Install-Module -Name Pester -Scope CurrentUser -verbose; import-module pester; Invoke-Pester -Script $(Build.SourcesDirectory)/CI -OutputFile $(Build.SourcesDirectory)/TEST-ARM.xml -OutputFormat NUnitXML -EnableExit'    
+    script: 'Install-Module -Name Pester -Force -Scope CurrentUser -verbose; Invoke-Pester -Script $(Build.SourcesDirectory)/CI -OutputFile $(Build.SourcesDirectory)/TEST-ARM.xml -OutputFormat NUnitXML -EnableExit'    
 
 - task: PublishTestResults@2
   inputs:
