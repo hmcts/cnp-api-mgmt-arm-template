@@ -138,9 +138,6 @@
     "oAuthClientSecret": {
       "type": "string"
     },
-    "keyVaultId" : {
-      "type": "string"
-    },
     "certificateExpiry": {
       "type": "string"
     },
@@ -230,7 +227,6 @@
             {
               "type": "Proxy",
               "hostName": "[variables('hostName')]",
-              "keyVaultId": "[parameters('keyVaultId')]",
               "certificate": {
                   "expiry": "[parameters('certificateExpiry')]",
                   "thumbprint":  "[parameters('certificateThumbprint')]",
@@ -241,7 +237,6 @@
             {
                 "type": "Management",
                 "hostName": "[variables('hostName')]",
-                "keyVaultId": "[parameters('keyVaultId')]",
                 "certificate": {
                     "expiry": "[parameters('certificateExpiry')]",
                     "thumbprint": "[parameters('certificateThumbprint')]",
@@ -252,7 +247,6 @@
             {
                 "type": "Portal",
                 "hostName": "[variables('hostName')]",
-                "keyVaultId": "[parameters('keyVaultId')]",
                 "certificate": {
                     "expiry": "[parameters('certificateExpiry')]",
                     "thumbprint": "[parameters('certificateThumbprint')]",
