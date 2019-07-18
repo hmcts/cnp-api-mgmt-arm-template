@@ -183,7 +183,10 @@
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
     "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]",
-    "hostName": "[concat(variables('apiManagementServiceName'), '.', parameters('customDomainName'))]"
+    "hostSuffix": "[concat('-',parameters('environmentName'),'.', parameters('customDomainName'))]",
+    "proxyName": "[concat('apim',variables('hostSuffix'))]",
+    "mgmtName": "[concat('apim-mgmt',variables('hostSuffix'))]",
+    "portalName": "[concat('apim-portal',variables('hostSuffix'))]"
   },
   "resources": [
     {
@@ -219,14 +222,8 @@
         },
         "hostnameConfigurations": [
             {
-                "type": "Proxy",
-                "hostName": "[variables('hostName')]",
-                "negotiateClientCertificate": false,
-                "defaultSslBinding": false
-            },
-            {
               "type": "Proxy",
-              "hostName": "[variables('hostName')]",
+              "hostName": "[variables('proxyName')]",
               "certificate": {
                   "expiry": "[parameters('certificateExpiry')]",
                   "thumbprint":  "[parameters('certificateThumbprint')]",
@@ -236,7 +233,7 @@
             },
             {
                 "type": "Management",
-                "hostName": "[variables('hostName')]",
+                "hostName": "[variables('mgmtName')]",
                 "certificate": {
                     "expiry": "[parameters('certificateExpiry')]",
                     "thumbprint": "[parameters('certificateThumbprint')]",
@@ -246,7 +243,7 @@
             },
             {
                 "type": "Portal",
-                "hostName": "[variables('hostName')]",
+                "hostName": "[variables('portalName')]",
                 "certificate": {
                     "expiry": "[parameters('certificateExpiry')]",
                     "thumbprint": "[parameters('certificateThumbprint')]",
