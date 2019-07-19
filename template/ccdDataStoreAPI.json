@@ -191,18 +191,6 @@
         "value": "[parameters('commonPolicyUrl')]",
         "format": "rawxml-link"
       }
-    },
-    {
-      "type": "Microsoft.ApiManagement/service/apis/operations/policies",
-      "apiVersion": "2019-01-01",
-      "name": "[concat(parameters('apiManagementName'), '/', parameters('apiName'), '/', 'getCaseUsingGET' , '/', 'policy')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/properties', parameters('apiManagementName'), 'ccd-backend-url')]"
-      ],
-      "properties": {
-        "value": "https://raw.githubusercontent.com/hmcts/cnp-api-mgmt-arm-template/master/policy/getCaseUsingGET.policy.xml",
-        "format": "rawxml-link"
-      }
     }
   ]
 }
