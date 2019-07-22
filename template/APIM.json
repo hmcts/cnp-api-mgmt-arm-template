@@ -184,6 +184,7 @@
   },
   "variables": {
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
+    "apiManagementNsgName": "[concat('apim-',parameters('environmentName'),'-nsg')]",
     "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
     "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]",
     "hostSuffix": "[concat('-',parameters('environmentName'),'.', parameters('customDomainName'))]",
@@ -282,6 +283,100 @@
         "authorizationEndpoint": "[parameters('oAuthEndpointUrl')]",
         "grantTypes": "[parameters('oAuthGrantTypes')]",
         "clientId": "[parameters('oAuthClientId')]"
+      }
+    },
+    {
+      "apiVersion": "2019-04-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('apiManagementNsgName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "AllowClientToApim",
+            "properties": {
+              "description": "Client communication to API Management",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["80, 443"],
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "AllowApimManagement",
+            "properties": {
+              "description": "Allow Management of APIM",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["3443"],
+              "sourceAddressPrefix": "ApiManagement",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "AllowApimToAzureStorage",
+            "properties": {
+              "description": "Allow Management of APIM",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["80, 443"],
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "Storage",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "AllowApimToSqlEndpoints",
+            "properties": {
+              "description": "Access to Azure SQL endpoints",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["1433"],
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "Sql",
+              "access": "Allow",
+              "priority": 110,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "AllowApimToPublishResourceHealth",
+            "properties": {
+              "description": "Needed to publish Health status to Resource Health",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["1886"],
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "Internet",
+              "access": "Allow",
+              "priority": 120,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "AllowApimToPublishDiagnostics",
+            "properties": {
+              "description": "Publish Diagnostics Logs and Metrics",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": ["443"],
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "Internet",
+              "access": "Allow",
+              "priority": 130,
+              "direction": "Outbound"
+            }
+          }
+        ]
       }
     }
   ]
