@@ -45,11 +45,17 @@
                         ).ToString();
                     }</set-body>
                 </send-request>
-                <set-backend-service base-url="{{ccd-backend-url}}" />
                 <!-- Store result in cache for 4 hours-->
                 <cache-store-value key="@("s2s-cache")" value="@(((IResponse)context.Variables["s2s"]).Body.As<string>().ToString())" duration="14400" />
+                <!-- Get the cached value and store is as the `s2s_value` variable-->
+                <cache-lookup-value key="@("s2s-cache")" variable-name="s2s-cache" />
             </when>
         </choose>
+        <set-backend-service base-url="{{ccd-backend-url}}" />
+        <!-- Do not set the ServiceAuthorization header if it already exists -->
+        <set-header name="ServiceAuthorization" exists-action="skip">
+            <value>@{ return ((string)context.Variables["s2s-cache"]); }</value>
+        </set-header>
     </inbound>
     <backend>
         <base />
