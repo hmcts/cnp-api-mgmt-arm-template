@@ -19,12 +19,14 @@
         }
     },
     "security": [{
-        "apiKeyHeader": []
+        "apiKeyHeader": [],
+        "oauth2IDAM": [""]
     }, {
-        "apiKeyQuery": []
+        "apiKeyQuery": [],
+        "oauth2IDAM": [""]
     }],
     "paths": {
-        "/case-types/{caseTypeId}/event-triggers/{triggerId}": {
+        "/data/case-types/{caseTypeId}/event-triggers/{triggerId}": {
             "get": {
                 "description": "Experimental! Subject to change or removal, do not use in production!",
                 "operationId": "getStartCaseTriggerUsingGET",
@@ -81,7 +83,7 @@
                 "produces": ["application/vnd.uk.gov.hmcts.ccd-data-store-api.start-case-trigger.v2+json;charset=UTF-8"]
             }
         },
-        "/case-types/{caseTypeId}/validate": {
+        "/data/case-types/{caseTypeId}/validate": {
             "post": {
                 "description": "Experimental! Subject to change or removal, do not use in production!",
                 "operationId": "validateUsingPOST",
@@ -140,7 +142,7 @@
                 "produces": ["application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8"]
             }
         },
-        "/cases/{caseId}": {
+        "/data/cases/{caseId}": {
             "get": {
                 "description": "Experimental! Subject to change or removal, do not use in production!",
                 "operationId": "getCaseUsingGET",
@@ -186,7 +188,7 @@
                 "produces": ["application/vnd.uk.gov.hmcts.ccd-data-store-api.case.v2+json;charset=UTF-8"]
             }
         },
-        "/cases/{caseId}/event-triggers/{triggerId}": {
+        "/data/cases/{caseId}/event-triggers/{triggerId}": {
             "get": {
                 "description": "Experimental! Subject to change or removal, do not use in production!",
                 "operationId": "getStartEventTriggerUsingGET",
@@ -246,7 +248,7 @@
                 "produces": ["application/vnd.uk.gov.hmcts.ccd-data-store-api.start-event-trigger.v2+json;charset=UTF-8"]
             }
         },
-        "/cases/{caseId}/events": {
+        "/data/cases/{caseId}/events": {
             "post": {
                 "description": "Experimental! Subject to change or removal, do not use in production!",
                 "operationId": "createEventUsingPOST",
@@ -303,7 +305,7 @@
                 "produces": ["application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8"]
             }
         },
-        "/cases/{caseReference}/users/{userId}": {
+        "/data/cases/{caseReference}/users/{userId}": {
             "put": {
                 "description": "Update a user's roles for a specific case. Grant access for added case roles and revoke access for removed case roles.",
                 "operationId": "putUserUsingPUT",
