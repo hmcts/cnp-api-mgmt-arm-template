@@ -298,82 +298,12 @@
               "description": "Client communication to API Management",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": ["80", "443"],
+              "destinationPortRange": "443",
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "VirtualNetwork",
               "access": "Allow",
               "priority": 100,
               "direction": "Inbound"
-            }
-          },
-          {
-            "name": "AllowApimManagement",
-            "properties": {
-              "description": "Allow Management of APIM",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3443",
-              "sourceAddressPrefix": "ApiManagement",
-              "destinationAddressPrefix": "VirtualNetwork",
-              "access": "Allow",
-              "priority": 110,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "AllowApimToAzureStorage",
-            "properties": {
-              "description": "Allow Management of APIM",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": ["80", "443"],
-              "sourceAddressPrefix": "VirtualNetwork",
-              "destinationAddressPrefix": "Storage",
-              "access": "Allow",
-              "priority": 100,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "AllowApimToSqlEndpoints",
-            "properties": {
-              "description": "Access to Azure SQL endpoints",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": ["1433"],
-              "sourceAddressPrefix": "VirtualNetwork",
-              "destinationAddressPrefix": "Sql",
-              "access": "Allow",
-              "priority": 110,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "AllowApimToPublishResourceHealth",
-            "properties": {
-              "description": "Needed to publish Health status to Resource Health",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": ["1886"],
-              "sourceAddressPrefix": "VirtualNetwork",
-              "destinationAddressPrefix": "Internet",
-              "access": "Allow",
-              "priority": 120,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "AllowApimToPublishDiagnostics",
-            "properties": {
-              "description": "Publish Diagnostics Logs and Metrics",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": ["443"],
-              "sourceAddressPrefix": "VirtualNetwork",
-              "destinationAddressPrefix": "Internet",
-              "access": "Allow",
-              "priority": 130,
-              "direction": "Outbound"
             }
           }
         ]
