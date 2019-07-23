@@ -80,7 +80,8 @@
       }
     },
     "oAuthDisplayName": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "IDAM"
     },
     "oAuthDescription": {
       "type": "string",
@@ -132,28 +133,14 @@
         ["authorizationHeader", "query"]
       ]
     },
-    "keyVaultId" : {	
-      "type": "string"	
-    },
+
     "oAuthClientId": {
       "type": "string"
     },
     "oAuthClientSecret": {
       "type": "string"
     },
-    "certificateExpiry": {
-      "type": "string"
-    },
-    "certificateThumbprint": {
-      "type": "string"
-    },
-    "certificateSubject": {
-      "type": "string"
-    },
-    "customDomainName" : {
-      "type" : "string",
-      "defaultValue": "azure-api.net"
-    },
+
     "branch": {
       "type": "string"
     },
