@@ -186,11 +186,7 @@
     "apiManagementServiceName": "[concat('core-api-mgmt-',parameters('environmentName'))]",
     "apiManagementNsgName": "[concat('apim-',parameters('environmentName'),'-nsg')]",
     "SubnetResourceId": "[resourceId(parameters('vNetResourceGroup'),'Microsoft.Network/virtualNetworks/subnets',parameters('vNetName'),parameters('vNetSubnetName'))]",
-    "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]",
-    "hostSuffix": "[concat('-',parameters('environmentName'),'.', parameters('customDomainName'))]",
-    "proxyName": "[concat('apim',variables('hostSuffix'))]",
-    "mgmtName": "[concat('apim-mgmt',variables('hostSuffix'))]",
-    "portalName": "[concat('apim-portal',variables('hostSuffix'))]"
+    "AuthorizationServerName": "[concat(variables('apiManagementServiceName'), '/', parameters('idamInstance'))]"
   },
   "resources": [
     {
@@ -224,41 +220,7 @@
         "customProperties": {
           "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "true"
         },
-        "hostnameConfigurations": [
-            {
-              "type": "Proxy",
-              "hostName": "[variables('proxyName')]",
-              "keyVaultId": "[parameters('keyVaultId')]",
-              "certificate": {
-                  "expiry": "[parameters('certificateExpiry')]",
-                  "thumbprint":  "[parameters('certificateThumbprint')]",
-                  "subject": "[parameters('certificateSubject')]"
-              },
-              "defaultSslBinding": true
-            },
-            {
-                "type": "Management",
-                "hostName": "[variables('mgmtName')]",
-                "keyVaultId": "[parameters('keyVaultId')]",
-                "certificate": {
-                    "expiry": "[parameters('certificateExpiry')]",
-                    "thumbprint": "[parameters('certificateThumbprint')]",
-                    "subject": "[parameters('certificateSubject')]"
-                },
-                "defaultSslBinding": false
-            },
-            {
-                "type": "Portal",
-                "hostName": "[variables('portalName')]",
-                "keyVaultId": "[parameters('keyVaultId')]",
-                "certificate": {
-                    "expiry": "[parameters('certificateExpiry')]",
-                    "thumbprint": "[parameters('certificateThumbprint')]",
-                    "subject": "[parameters('certificateSubject')]"
-                },
-                "defaultSslBinding": false
-            }
-        ]
+        "hostnameConfigurations": []
       },
       "identity": {
         "type": "SystemAssigned"
