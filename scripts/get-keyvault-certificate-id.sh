@@ -14,5 +14,5 @@ if [ -z "${KEYVAULT_NAME}" ] ; then
   exit 1
 fi
 
-KEYVAULT_ID=$(az keyvault certificate show --name ${CERTIFICATE_NAME} --vault-name ${KEYVAULT_NAME} --query "sid" --output tsv --verbose`)
+KEYVAULT_ID=$(az keyvault certificate show --name ${CERTIFICATE_NAME} --vault-name ${KEYVAULT_NAME} --query "sid" --output tsv --verbose)
 echo "##vso[task.setvariable variable=Certificate.KeyvaultId;issecret=true]${KEYVAULT_ID}"
