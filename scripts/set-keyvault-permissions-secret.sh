@@ -28,4 +28,4 @@ if [ -z "${MI_PRINCIPAL_ID}" ] ; then
 fi
 
 az keyvault set-policy -n ${KEYVAULT_NAME} --object-id ${MI_PRINCIPAL_ID} --secret-permissions get list
-echo "A policy for the Managed Identity '${APIM_NAME}' has been added to Keyvault '${KEYVAULT_NAME}'"
+echo "A secrets policy for the Managed Identity '${APIM_NAME}' has been added to Keyvault '${KEYVAULT_NAME}'"
