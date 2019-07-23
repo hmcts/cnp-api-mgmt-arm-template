@@ -30,7 +30,7 @@ $proxyName = ('{0}{1}' -f $ProxyPrefix, $hostSuffix)
 
 $VerbosePreference = "Continue"
 
-$ApiInstance = Get-AzApiManagement -ResourceGroupName $ResourceGroupName -Name  $ApiManagementName
+$ApiInstance = Get-AzureRmApiManagement -ResourceGroupName $ResourceGroupName -Name  $ApiManagementName
 
 $UpdateAPIM = $false
 
@@ -41,7 +41,7 @@ if ($ApiInstance.PortalCustomHostnameConfiguration.KeyVaultId -eq $KeyVaultId  -
 }
 else
 {
-    $ApiInstance.PortalCustomHostnameConfiguration = New-AzApiManagementCustomHostnameConfiguration -Hostname $portalName -HostnameType Portal -KeyVaultId $KeyVaultId 
+    $ApiInstance.PortalCustomHostnameConfiguration = New-AzureRmApiManagementCustomHostnameConfiguration -Hostname $portalName -HostnameType Portal -KeyVaultId $KeyVaultId 
     $UpdateAPIM = $true
 }
 
@@ -52,7 +52,7 @@ if ($ApiInstance.ManagementCustomHostnameConfiguration.KeyVaultId -eq $KeyVaultI
 }
 else
 {
-    $ApiInstance.ManagementCustomHostnameConfiguration = New-AzApiManagementCustomHostnameConfiguration -Hostname $mgmtName  -HostnameType Management -KeyVaultId $KeyVaultId 
+    $ApiInstance.ManagementCustomHostnameConfiguration = New-AzureRmApiManagementCustomHostnameConfiguration -Hostname $mgmtName  -HostnameType Management -KeyVaultId $KeyVaultId 
     $UpdateAPIM = $true
 }
 
@@ -63,13 +63,13 @@ if ($ApiInstance.ProxyCustomHostnameConfiguration.KeyVaultId -eq $KeyVaultId  -a
 }
 else
 {
-    $ApiInstance.ProxyCustomHostnameConfiguration = New-AzApiManagementCustomHostnameConfiguration -Hostname $proxyName -HostnameType Proxy -KeyVaultId $KeyVaultId 
+    $ApiInstance.ProxyCustomHostnameConfiguration = New-AzureRmApiManagementCustomHostnameConfiguration -Hostname $proxyName -HostnameType Proxy -KeyVaultId $KeyVaultId 
     $UpdateAPIM = $true
 }
 
 if ($UpdateAPIM)
 {
-    Set-AzApiManagement -InputObject $ApiInstance
+    Get-AzureRmApiManagement -InputObject $ApiInstance
 }
 else
 {
