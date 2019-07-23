@@ -70,6 +70,7 @@ else
 if ($UpdateAPIM)
 {
     Set-AzureRmApiManagement -ApiManagement $ApiInstance -verbose
+}
 else
 {
     Write-Output 'No updates to APIM required'
