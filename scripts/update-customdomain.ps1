@@ -69,7 +69,7 @@ else
 
 if ($UpdateAPIM)
 {
-    Set-AzureRmApiManagement $ApiInstance
+    Set-AzureRmApiManagement -InputObject $ApiInstance   
 }
 else
 {
