@@ -8,4 +8,4 @@ param (
     $CertificateName
     )
 
-write-host ("##vso[task.setvariable variable=Certificate.KeyvaultId;issecret=true]{0}" -f ((Get-AzKeyVaultSecret ($KeyVaultName) -Name ($CertificateName)).id))
+write-host ("##vso[task.setvariable variable=Certificate.KeyvaultId;issecret=true]{0}" -f ((Get-AzureKeyVaultSecret ($KeyVaultName) -Name ($CertificateName)).id))
