@@ -285,7 +285,7 @@
     },
     {
       "type": "Microsoft.ApiManagement/service/products/groups",
-      "apiVersion": "2019-01-01",
+      "apiVersion": "2019-01-01", 
       "name": "[concat(variables('apiManagementServiceName'), '/',parameters('ProductName'),'/developers')]",
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service/products', variables('apiManagementServiceName'), parameters('ProductName'))]",
@@ -297,9 +297,7 @@
         "builtIn": true,
         "type": "system"
       }
-    }
-
-
+    },
     {
       "name": "[variables('AuthorizationServerName')]",
       "type": "Microsoft.ApiManagement/service/authorizationServers",
