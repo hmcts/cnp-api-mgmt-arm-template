@@ -93,12 +93,22 @@
     },
     "oAuthGrantTypes": {
       "type": "array",
-      "defaultValue": ["authorizationCode"],
+      "defaultValue": [
+        "authorizationCode"
+      ],
       "allowedValues": [
-        ["authorizationCode"],
-        ["implicit"],
-        ["resourceOwnerPassword"],
-        ["clientCredentials"]
+        [
+          "authorizationCode"
+        ],
+        [
+          "implicit"
+        ],
+        [
+          "resourceOwnerPassword"
+        ],
+        [
+          "clientCredentials"
+        ]
       ]
     },
     "oAuthEndpointUrl": {
@@ -106,10 +116,17 @@
     },
     "oAuthMethods": {
       "type": "array",
-      "defaultValue": ["GET"],
+      "defaultValue": [
+        "GET"
+      ],
       "allowedValues": [
-        ["GET"],
-        ["GET", "POST"]
+        [
+          "GET"
+        ],
+        [
+          "GET",
+          "POST"
+        ]
       ]
     },
     "oAuthTokenEndpointUri": {
@@ -117,30 +134,46 @@
     },
     "oAuthClientAuthenticationMethod": {
       "type": "array",
-      "defaultValue": ["Basic"],
+      "defaultValue": [
+        "Basic"
+      ],
       "allowedValues": [
-        ["Basic"],
-        ["Body"],
-        ["Basic", "Body"]
+        [
+          "Basic"
+        ],
+        [
+          "Body"
+        ],
+        [
+          "Basic",
+          "Body"
+        ]
       ]
     },
     "oAuthTokenSendingMethod": {
       "type": "array",
-      "defaultValue": ["authorizationHeader"],
+      "defaultValue": [
+        "authorizationHeader"
+      ],
       "allowedValues": [
-        ["authorizationHeader"],
-        ["query"],
-        ["authorizationHeader", "query"]
+        [
+          "authorizationHeader"
+        ],
+        [
+          "query"
+        ],
+        [
+          "authorizationHeader",
+          "query"
+        ]
       ]
     },
-
     "oAuthClientId": {
       "type": "string"
     },
     "oAuthClientSecret": {
       "type": "string"
     },
-
     "branch": {
       "type": "string"
     },
@@ -167,6 +200,14 @@
     },
     "criticality": {
       "type": "string"
+    },
+    "ProductName": {
+      "type": "string",
+      "defaultValue": "DefaultCaseCreationThrottle"
+    },
+    "ProductSubscriptionLimit": {
+      "type": "string",
+      "defaultValue": "500"
     }
   },
   "variables": {
@@ -206,13 +247,59 @@
         },
         "customProperties": {
           "Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TripleDes168": "true"
-        },
-        "hostnameConfigurations": []
+        }
       },
       "identity": {
         "type": "SystemAssigned"
       }
     },
+    {
+      "name": "[concat(variables('apiManagementServiceName'),'/',parameters('ProductName'))]",
+      "type": "Microsoft.ApiManagement/service/products",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
+      ],
+      "apiVersion": "2019-01-01",
+      "properties": {
+        "description": "A custom APIM Product",
+        "subscriptionRequired": true,
+        "subscriptionsLimit": "[parameters('ProductSubscriptionLimit')]",
+        "state": "Published",
+        "displayName": "[parameters('ProductName')]"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/products/groups",
+      "apiVersion": "2019-01-01",
+      "name": "[concat(variables('apiManagementServiceName'), '/',parameters('ProductName'),'/administrators')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/products', variables('apiManagementServiceName'), parameters('ProductName'))]",
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
+      ],
+      "properties": {
+        "displayName": "Administrators",
+        "description": "Administrators is a built-in group. Its membership is managed by the system. Microsoft Azure subscription administrators fall into this group.",
+        "builtIn": true,
+        "type": "system"
+      }
+    },
+    {
+      "type": "Microsoft.ApiManagement/service/products/groups",
+      "apiVersion": "2019-01-01",
+      "name": "[concat(variables('apiManagementServiceName'), '/',parameters('ProductName'),'/developers')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/products', variables('apiManagementServiceName'), parameters('ProductName'))]",
+        "[resourceId('Microsoft.ApiManagement/service', variables('apiManagementServiceName'))]"
+      ],
+      "properties": {
+        "displayName": "Developers",
+        "description": "Developers is a built-in group. Its membership is managed by the system. Microsoft Azure subscription administrators fall into this group.",
+        "builtIn": true,
+        "type": "system"
+      }
+    }
+
+
     {
       "name": "[variables('AuthorizationServerName')]",
       "type": "Microsoft.ApiManagement/service/authorizationServers",
@@ -247,7 +334,10 @@
               "description": "Client communication to API Management",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["80", "443"],
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "VirtualNetwork",
               "access": "Allow",
@@ -261,7 +351,9 @@
               "description": "Allow Management of APIM",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["3443"],
+              "destinationPortRanges": [
+                "3443"
+              ],
               "sourceAddressPrefix": "ApiManagement",
               "destinationAddressPrefix": "VirtualNetwork",
               "access": "Allow",
@@ -275,7 +367,10 @@
               "description": "Allow Management of APIM",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["80", "443"],
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "Storage",
               "access": "Allow",
@@ -289,7 +384,9 @@
               "description": "Access to Azure SQL endpoints",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["1433"],
+              "destinationPortRanges": [
+                "1433"
+              ],
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "Sql",
               "access": "Allow",
@@ -303,7 +400,9 @@
               "description": "Needed to publish Health status to Resource Health",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["1886"],
+              "destinationPortRanges": [
+                "1886"
+              ],
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "Internet",
               "access": "Allow",
@@ -317,7 +416,9 @@
               "description": "Publish Diagnostics Logs and Metrics",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRanges": ["443"],
+              "destinationPortRanges": [
+                "443"
+              ],
               "sourceAddressPrefix": "VirtualNetwork",
               "destinationAddressPrefix": "Internet",
               "access": "Allow",
