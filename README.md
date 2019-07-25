@@ -3,9 +3,17 @@
 This repository contains ARM templates for building out an Azure API Managment instance with the following components:
 
 * An API Management Instance
-* An API
-* oAuth Authentication
+* The CCD DataStore API.
+* OAuth Authentication
 * API Policies
+
+
+### Pre-Requsites
+The following resources are expected to be in place in order for the API Management instance to be deployed successfully.
+
+* A virtual network
+* A subnet
+* An OAuth endpoint.
 
 ### APIM NSG Rules
 As part of this ARM deployment, a NSG will be created which secure the APIM subnet. These NSG rules have been derived from the following Microsoft [Documentation](https://docs.microsoft.com/en-us/azure/api-management/api-management-using-with-vnet#-common-network-configuration-issues).
