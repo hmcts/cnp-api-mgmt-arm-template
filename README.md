@@ -14,7 +14,7 @@ Please note that not all rules have been applied due to them not being applicabl
 
 |Source / Destination Port(s)|Direction|Transport protocol|Transport protocol|Purpose|
 |---|---|---|---|---|
-| * / 80, 443|Inbound|TCP|INTERNET / VIRTUAL_NETWORK|Client communication to API Management|
+| * / 80, 443|Inbound|TCP|VIRTUAL_NETWORK / VIRTUAL_NETWORK|Client communication to API Management|
 |* / 3443|Inbound|TCP|ApiManagement / VIRTUAL_NETWORK|Management endpoint for Azure portal and Powershell|
 |* / 80, 443|Outbound|TCP|VIRTUAL_NETWORK / Storage|Dependency on Azure Storage|
 |* / 1433|Outbound|TCP|VIRTUAL_NETWORK / SQL|Access to Azure SQL endpoints|
