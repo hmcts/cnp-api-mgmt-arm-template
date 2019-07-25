@@ -8,7 +8,7 @@ This repository contains ARM templates for building out an Azure API Managment i
 * API Policies
 
 
-### Pre-Requsites
+### Pre-Requisites
 The following resources are expected to be in place in order for the API Management instance to be deployed successfully.
 
 * A virtual network
